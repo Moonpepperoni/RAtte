@@ -23,8 +23,8 @@ import (
 // reformatAllCmd represents the all subcommand to of the reformat command
 var reformatAllCmd = &cobra.Command{
 	Use:   "all",
-	Short: "Searches the current directory for .sec files recursively and applies the reformatting",
-	Long: `Searches the current directory for .sec files recursively and changes the file extension of all *asm.sec files to *.asm
+	Short: "Searches the current directory for *asm.sec files recursively and applies the reformatting",
+	Long: `Searches the current directory for *asm.sec files recursively and changes the file extension of all *asm.sec files to *.asm
 
 Examples:
   ratte reformat all`,

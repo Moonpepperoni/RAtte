@@ -22,12 +22,12 @@ import (
 // reformatCmd represents the reformat root command it is not directly callable
 var reformatCmd = &cobra.Command{
 	Use:   "reformat",
-	Short: "Converts asm.sec files to .asm files",
-	Long: `Converts asm.sec files to .asm files. 
-all/only subcommands changes how many files are affected by this command.
+	Short: "Converts *asm.sec files to *.asm files",
+	Long: `Converts *asm.sec files to *.asm files. 
+all/only subcommands changes how many and which files are affected by this command.
 
 Examples: 
-  ratte reformat all week1
+  ratte reformat all
   ratte reformat only student_001
   ratte reformat only student_001/assignment1`,
 }

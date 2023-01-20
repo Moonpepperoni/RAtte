@@ -25,11 +25,12 @@ import (
 var reformatOnlyCmd = &cobra.Command{
 	Use:   "only [directory / path to .sec file]",
 	Short: "Only applies the reformat command to one file in the specified directory/path",
-	Long: `Only applies the reformat command to one .sec file in the specified directory or path.
+	Long: `Only applies the reformat command to one *asm.sec file in the specified directory or path.
 
-The directory is searched recursively until all .sec files are found.
-Thus the specified directory must not contain more than one .sec file recursively.
-In order for this to be true it might be required that you specify the path all the way to the file you want to reformat itself. 
+The directory is searched recursively until all *asm.sec files are found.
+The specified directory must not contain more than one *asm.sec file recursively. 
+Calling "reformat only" on a directory that has more than one *asm.sec file will fail.
+Thus in order for this condition to be met it might be required that you specify the path all the way to the single file you want to reformat. 
 
 Examples:
   ratte reformat only assignment1
