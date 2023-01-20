@@ -3,7 +3,6 @@ package dirutil
 import (
 	"io/fs"
 	"path/filepath"
-	"strings"
 )
 
 // GetAllFilesRecur returns the absolute path to all files in the specified dir.
@@ -26,8 +25,8 @@ func GetAllFilesRecur(dir string) ([]string, error) {
 	return allFiles, walkErr
 }
 
-// filterPaths returns all paths that match the given predicate
-func filterPaths(paths []string, predicate func(string) bool) []string {
+// FilterPaths returns all paths that match the given predicate
+func FilterPaths(paths []string, predicate func(string) bool) []string {
 	var filtered []string
 	for _, path := range paths {
 		if predicate(path) {
@@ -35,16 +34,4 @@ func filterPaths(paths []string, predicate func(string) bool) []string {
 		}
 	}
 	return filtered
-}
-
-func FilterSecFiles(paths []string) []string {
-	return filterPaths(paths, func(path string) bool {
-		return strings.HasSuffix(path, "asm.sec")
-	})
-}
-
-func FilterAsmFiles(paths []string) []string {
-	return filterPaths(paths, func(path string) bool {
-		return strings.HasSuffix(path, ".asm")
-	})
 }

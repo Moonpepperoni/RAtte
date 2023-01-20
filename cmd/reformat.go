@@ -16,7 +16,9 @@ limitations under the License.
 package cmd
 
 import (
+	"github.com/Moonpepperoni/ratte/dirutil"
 	"github.com/spf13/cobra"
+	"strings"
 )
 
 // reformatCmd represents the reformat root command it is not directly callable
@@ -34,4 +36,18 @@ Examples:
 
 func init() {
 	rootCmd.AddCommand(reformatCmd)
+}
+
+func filterSecFiles(paths []string) []string {
+	return dirutil.FilterPaths(paths, func(path string) bool {
+		return strings.HasSuffix(path, "asm.sec")
+	})
+}
+
+func getAllSecFiles(root string) ([]string, error) {
+	allFiles, err := dirutil.GetAllFilesRecur(root)
+	if err != nil {
+		return nil, err
+	}
+	return filterSecFiles(allFiles), nil
 }
