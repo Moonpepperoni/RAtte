@@ -42,3 +42,9 @@ func FilterSecFiles(paths []string) []string {
 		return strings.HasSuffix(path, "asm.sec")
 	})
 }
+
+func FilterAsmFiles(paths []string) []string {
+	return filterPaths(paths, func(path string) bool {
+		return strings.HasSuffix(path, ".asm")
+	})
+}
