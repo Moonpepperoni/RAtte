@@ -24,7 +24,7 @@ import (
 
 // reformatCmd represents the reformat root command it is not directly callable
 var reformatCmd = &cobra.Command{
-	Use:   "reformat",
+	Use:   "reformat [command]",
 	Short: "Converts *asm.sec files to *.asm files",
 	Long: `Converts *asm.sec files to *.asm files. 
 all/only subcommands changes how many and which files are affected by this command.
