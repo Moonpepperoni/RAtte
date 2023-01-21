@@ -17,7 +17,7 @@ package cmd
 
 import (
 	"fmt"
-
+	"github.com/Moonpepperoni/ratte/format"
 	"github.com/spf13/cobra"
 )
 
@@ -36,8 +36,21 @@ Examples:
   ratte reformat only assignment1
   ratte reformat only assignment1/some_file.sec`,
 	Args: cobra.ExactArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("reformat only sub command called")
+	RunE: func(cmd *cobra.Command, args []string) error {
+		root := args[0]
+		secFiles, err := getAllSecFiles(root)
+		if err != nil {
+			return err
+		}
+		if len(secFiles) != 1 {
+			return fmt.Errorf("expected %s to lead to exactly 1 file of type *asm.sec but found: %d", root, len(secFiles))
+		}
+		err = renameToAsm(secFiles[0])
+		if err != nil {
+			return err
+		}
+		fmt.Println(format.RenameSuccess(secFiles[0]))
+		return nil
 	},
 }
 

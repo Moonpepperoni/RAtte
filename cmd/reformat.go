@@ -18,6 +18,7 @@ package cmd
 import (
 	"github.com/Moonpepperoni/ratte/dirutil"
 	"github.com/spf13/cobra"
+	"os"
 	"strings"
 )
 
@@ -50,4 +51,8 @@ func getAllSecFiles(root string) ([]string, error) {
 		return nil, err
 	}
 	return filterSecFiles(allFiles), nil
+}
+
+func renameToAsm(path string) error {
+	return os.Rename(path, strings.Replace(path, "asm.sec", ".asm", 1))
 }
