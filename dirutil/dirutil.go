@@ -2,7 +2,9 @@ package dirutil
 
 import (
 	"io/fs"
+	"os"
 	"path/filepath"
+	"strings"
 )
 
 // GetAllFilesRecur returns the absolute path to all files in the specified dir.
@@ -34,4 +36,22 @@ func FilterPaths(paths []string, predicate func(string) bool) []string {
 		}
 	}
 	return filtered
+}
+
+func relativePath(absolutePath, root string) string {
+	if root == "/" {
+		return absolutePath
+	}
+	// trimming and adding, so we know for sure cleanRoot is ending in with a slash
+	cleanRoot := strings.TrimSuffix(root, "/") + "/"
+	return strings.Replace(absolutePath, cleanRoot, "", 1)
+}
+
+func RelativePath(absolutePath string) string {
+	wd, err := os.Getwd()
+	if err != nil {
+		return absolutePath
+	}
+	return relativePath(absolutePath, wd)
+
 }
