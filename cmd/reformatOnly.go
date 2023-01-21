@@ -17,7 +17,6 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/Moonpepperoni/ratte/dirutil"
 	"github.com/Moonpepperoni/ratte/format"
 	"github.com/spf13/cobra"
 )
@@ -48,9 +47,10 @@ Examples:
 		}
 		err = renameToAsm(secFiles[0])
 		if err != nil {
-			return err
+			format.RenameFailure(secFiles[0], err)
+			return nil
 		}
-		fmt.Println(format.RenameSuccess(dirutil.RelativePath(secFiles[0])))
+		fmt.Println(format.RenameSuccess(secFiles[0]))
 		return nil
 	},
 }
