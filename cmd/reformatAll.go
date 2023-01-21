@@ -22,7 +22,7 @@ import (
 	"os"
 )
 
-// reformatAllCmd represents the all subcommand to of the reformat command
+// reformatAllCmd represents the all subcommand of the reformat command
 var reformatAllCmd = &cobra.Command{
 	Use:   "all",
 	Short: "Searches the current directory for *asm.sec files recursively and applies the reformatting",
