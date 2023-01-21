@@ -17,7 +17,9 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/Moonpepperoni/ratte/format"
 	"github.com/spf13/cobra"
+	"os"
 )
 
 // reformatAllCmd represents the all subcommand to of the reformat command
@@ -29,8 +31,27 @@ var reformatAllCmd = &cobra.Command{
 Examples:
   ratte reformat all`,
 	Args: cobra.NoArgs,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("called all subcommand of reformat")
+	RunE: func(cmd *cobra.Command, args []string) error {
+		root, err := os.Getwd()
+		if err != nil {
+			return err
+		}
+		secFiles, err := getAllSecFiles(root)
+		if err != nil {
+			return err
+		}
+		if len(secFiles) == 0 {
+			return fmt.Errorf("expected %s to lead to at least one file with extension *asm.sec but found none", root)
+		}
+		for _, secFile := range secFiles {
+			err := renameToAsm(secFile)
+			if err != nil {
+				fmt.Printf("Renaming file %s failed:\n%s", secFile, err.Error())
+			} else {
+				fmt.Println(format.RenameSuccess(secFile))
+			}
+		}
+		return nil
 	},
 }
 
