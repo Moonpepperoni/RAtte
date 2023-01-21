@@ -22,6 +22,9 @@ func GetAllFilesRecur(dir string) ([]string, error) {
 			}
 			allFiles = append(allFiles, absolutePath)
 		}
+		if filepath.Base(pathEntry.Name()) == "deps" {
+			return filepath.SkipDir
+		}
 		return nil
 	})
 	return allFiles, walkErr
